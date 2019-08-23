@@ -18,10 +18,14 @@ class server():
             threading.Thread(target = self.rec, args = (sock1,)).start()
 
     def rec(self,sock):
+        '''
+            返回一个四/五元列表，包含（！【0】则为撤回消息报文）聊天id【0】发送时间【1】发送者id【2】发送内容【3】
+        '''
         while True:
             data = sock.recv(1024)
             message = data.decode()
-            print(message)
+            message = message.strip()
+            return message.split("|")
 
     def close(self):
         self.sock.close()
